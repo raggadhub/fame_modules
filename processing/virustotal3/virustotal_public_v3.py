@@ -3,7 +3,7 @@ import hashlib
 from fame.core.module import ProcessingModule, ModuleInitializationError
 
 try:
-    from vt import Client
+    from vt import Client, url_id
     HAVE_VIRUSTOTAL = True
 except ImportError:
     HAVE_VIRUSTOTAL = False
@@ -29,7 +29,7 @@ class VirusTotalPublic3(ProcessingModule):
         self.results = {}
         vtc = Client(self.api_key)
         if target_type == "url":
-            url_id = vtc.url_id(target)
+            url_id = url_id(target)
             try:
                 response = vtc.get_object(str("/urls/{}", url_id))
                 self.results["threat_severity"] = response.threat_severity["level_description"]

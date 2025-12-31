@@ -29,9 +29,9 @@ class VirusTotalPublic3(ProcessingModule):
         self.results = {}
         vtc = Client(self.api_key)
         if target_type == "url":
-            url_id = url_id(target)
+            urlid = url_id(target)
             try:
-                response = vtc.get_object(str("/urls/{}", url_id))
+                response = vtc.get_object(str("/urls/{}", urlid))
                 self.results["threat_severity"] = response.threat_severity["level_description"]
             except Exception:
                 self.log("debug", "no report found")

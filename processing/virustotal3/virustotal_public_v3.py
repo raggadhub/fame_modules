@@ -30,6 +30,8 @@ class VirusTotalPublic3(ProcessingModule):
         vtc = Client(self.api_key)
         if target_type == "url":
             urlid = url_id(target)
+            response = vtc.get_object(str("/urls/{}", urlid))
+            self.results["threat_severity"] = response.threat_severity["level_description"]
             try:
                 response = vtc.get_object(str("/urls/{}", urlid))
                 self.results["threat_severity"] = response.threat_severity["level_description"]
